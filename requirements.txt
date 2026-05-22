@@ -1,0 +1,11 @@
+ollama
+chromadb
+huggingface-hub
+datasets
+numpy
+Pillow
+pyyaml
+pandas
+gradio
+
+

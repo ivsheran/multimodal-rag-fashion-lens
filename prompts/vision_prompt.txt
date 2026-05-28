@@ -8,6 +8,6 @@ Instructions:
 - Recognise segment: luxury, mass-market etc
 - Recognise season (fall, summer etc)
 - Based on recognized information generate and return a structured description of cloths elements and accessories. 
-- Be concise. Keep each section under 30 words
+- Be concise. Keep each section under 30 words. Focus ONLY on clothing and accessories. Ignore: background, environment, hair, face, body.
 
 Answer:

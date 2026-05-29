@@ -38,11 +38,13 @@ class RAGChain:
         # Format retrieved items into a context string for the LLM
         context = ""
         image_paths = []
+        metadatas = []
 
         for doc, meta in zip(results['documents'][0], results['metadatas'][0]):
             context += f"- {meta['product_name']}: {doc}\n"
             image_paths.append(meta['image_path'])
-        return context, image_paths
+            metadatas.append(meta)
+        return context, image_paths, metadatas 
 
     def generate_response(self, description, context):
         # Generate response using LLM based on the prompt and retrieved items

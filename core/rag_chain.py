@@ -37,9 +37,12 @@ class RAGChain:
 
         # Format retrieved items into a context string for the LLM
         context = ""
+        image_paths = []
+
         for doc, meta in zip(results['documents'][0], results['metadatas'][0]):
             context += f"- {meta['product_name']}: {doc}\n"
-        return context
+            image_paths.append(meta['image_path'])
+        return context, image_paths
 
     def generate_response(self, description, context):
         # Generate response using LLM based on the prompt and retrieved items
@@ -62,8 +65,8 @@ class RAGChain:
         # Analyse image
         description = self.analyse_image(image)
         # Retrieve similar items
-        context = self.retrieve_similar(description, top_k=self.config.top_k)
+        context, image_paths = self.retrieve_similar(description, top_k=self.config.top_k)
         # Generate response
         response = self.generate_response(description, context)
-        return response
+        return response, image_paths
     

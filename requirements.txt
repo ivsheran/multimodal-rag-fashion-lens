@@ -7,5 +7,5 @@ Pillow
 pyyaml
 pandas
 gradio
-
+python-dotenv
 

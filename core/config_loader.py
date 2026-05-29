@@ -1,4 +1,10 @@
+import os
 import yaml
+from dotenv import load_dotenv
+
+load_dotenv()
+hf_token=os.getenv("HF_TOKEN")
+
 
 class ConfigLoader:
     def __init__(self, config_path="config.yaml"):

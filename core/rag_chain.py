@@ -67,8 +67,8 @@ class RAGChain:
         # Analyse image
         description = self.analyse_image(image)
         # Retrieve similar items
-        context, image_paths = self.retrieve_similar(description, top_k=self.config.top_k)
+        context, image_paths, metadatas = self.retrieve_similar(description, top_k=self.config.top_k)
         # Generate response
         response = self.generate_response(description, context)
-        return response, image_paths
+        return response, image_paths, metadatas
     

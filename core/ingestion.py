@@ -14,6 +14,7 @@ class Ingestion:
     
         # Load dataset
     def load_dataset(self):
+        os.environ["HF_TOKEN"] = self.config.hf_token
         dataset_name = self.config.dataset_name
         self.dataset = load_dataset(dataset_name, split='train')
 
@@ -30,9 +31,11 @@ class Ingestion:
             text = f"{item['gender']} {item['masterCategory']} {item['subCategory']} {item['articleType']} {item['baseColour']} {item['season']} {item['usage']}"
             
             # Save image to disk
+            # Save image to disk at better size
             image_path = f"data/images/{item['id']}.jpg"
             if not os.path.exists(image_path):
-                item['image'].save(image_path)
+                img = item['image'].resize((300, 400))
+                img.save(image_path, quality=85)
 
             # Generate embedding using Ollama
             response = ollama.embeddings(

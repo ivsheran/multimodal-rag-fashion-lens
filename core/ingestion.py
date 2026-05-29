@@ -1,5 +1,7 @@
 
-import ollama 
+import ollama
+import os
+from PIL import Image 
 from datasets import load_dataset
 from core.config_loader import ConfigLoader
 from core.vector_store import VectorStore
@@ -26,7 +28,12 @@ class Ingestion:
             
             # Get text
             text = f"{item['gender']} {item['masterCategory']} {item['subCategory']} {item['articleType']} {item['baseColour']} {item['season']} {item['usage']}"
-                        
+            
+            # Save image to disk
+            image_path = f"data/images/{item['id']}.jpg"
+            if not os.path.exists(image_path):
+                item['image'].save(image_path)
+
             # Generate embedding using Ollama
             response = ollama.embeddings(
                 model=embedding_model,
@@ -39,7 +46,10 @@ class Ingestion:
                 ids=[str(item['id'])],
                 documents=[text],
                 embeddings=[vector],
-                metadatas=[{"product_name": item['productDisplayName']}]
+                metadatas=[{
+                    "product_name": item['productDisplayName'], 
+                    "image_path": image_path
+                    }]
             )
 
     def run(self, limit=None):

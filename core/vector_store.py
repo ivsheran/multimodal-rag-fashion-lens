@@ -29,5 +29,5 @@ class VectorStore:
         self.collection = self.client.get_or_create_collection(
             name=self.collection.name
     )
-    print("Collection cleared.")
+        print("Collection cleared.")
     
